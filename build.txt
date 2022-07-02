@@ -1,0 +1,3 @@
+displayName = Alxn - Accessories
+author = Alch3myst
+version = 0.1
