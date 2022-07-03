@@ -1,0 +1,7 @@
+Early game
+
+pre Eye
+
+Shockwave Flash
+- On every meele hit, create a shockwave around the enemy
+that deals 80% of the damage
