@@ -9,8 +9,9 @@ namespace alxnaccessories.Items
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Take half of the damage from mana instead of life.\n"
-			+"If you ran out of mana, you take 30% increassed damage.");
-			Item.value = Item.buyPrice(10);
+			+"If you ran out of mana, you take 30% increased damage.");
+			Item.value = Item.buyPrice(0, 5, 0, 0);
+			Item.rare = ItemRarityID.Purple;
 
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

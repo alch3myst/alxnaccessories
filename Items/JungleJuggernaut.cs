@@ -17,8 +17,8 @@ namespace alxnaccessories.Items
 			+ "and scales with current life\n"
 			+ "Crits deal a double strike\n"
 			);
-			Item.value = Item.buyPrice(10);
-
+			Item.value = Item.buyPrice(0, 5, 0, 0);
+			Item.rare = ItemRarityID.Purple;
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

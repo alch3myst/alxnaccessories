@@ -1,1 +1,20 @@
-Alxn - Accessories is a pretty cool mod, it does...this. Modify this file with a description of your mod.
+This mod explore some concepts of the game and tries to enable some builds
+If you have a cool idea comment here on steam, and i will try to implement the best one's
+
+PS: That's a side project, something i will work on weekends
+
+
+The plan for this mod
+
+Pre hard mode [WIP]:
+
+Some sort of a shock wave on hit, to help the early stages for melee classes
+and one accessory for each class, with some upgrades for them
+
+Hard mode:
+The main idea behind this mod, explore concepts and enable builds
+
+Post Moon Lord:
+Op upgrades to be usable with other mods, and not just a trash item on your storage
+
+Learn pixel art to rework all sprites.
