@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace alxnaccessories.Effects
 {
-	public class MageAccDebuff : ModBuff
+	public class CosmicBurnDebuff : ModBuff
 	{
 		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("Cosmic Burn");
@@ -13,32 +13,34 @@ namespace alxnaccessories.Effects
 		}
 
 		public override void Update(NPC npc, ref int buffIndex) {
-			npc.GetGlobalNPC<MageAccNPCDebuff>().MageAcc = true;
+			npc.GetGlobalNPC<CosmicBurnNPCDebuff>().BurnOn = true;
 		}
 	}
 
-	public class MageAccNPCDebuff : GlobalNPC
+	public class CosmicBurnNPCDebuff : GlobalNPC
 	{
 		public override bool InstancePerEntity => true;
-		public bool MageAcc;
 		public int burnDamage;
+		public bool StrongEffect;
 		public int Tick = 0;
 
-		public override void ResetEffects(NPC npc)
-		{
-			MageAcc = false;
+		public bool BurnOn;
+		public override void ResetEffects(NPC npc) {
+			BurnOn = false;
 		}
 		
 		public override void UpdateLifeRegen(NPC npc, ref int damage)
 		{
-			if (MageAcc) {
+			if (BurnOn) {
 				Tick++;
 				if (npc.lifeRegen > 0) { npc.lifeRegen = 0; }
 
 				long currentTime = System.DateTimeOffset.Now.ToUnixTimeMilliseconds();
-				npc.lifeRegen -= burnDamage;
+				if (!StrongEffect) npc.lifeRegen -= burnDamage;
 				
-				// if (Tick % 50 == 0) { npc.StrikeNPCNoInteraction(burnDamage,0,0,false,true); };
+				if (StrongEffect) {
+					if (Tick % 20 == 0) npc.StrikeNPCNoInteraction(burnDamage, 0, 0, false, true);
+				}
 			}
 		}
 	}

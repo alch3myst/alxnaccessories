@@ -8,8 +8,9 @@ namespace alxnaccessories.Items.EarlyGame
 	public class SummonAcc : ModItem {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Crimson Pact");
-			Tooltip.SetDefault("Every 7 seconds minions deal 70% more damage for 7 seconds.");
+			DisplayName.SetDefault("[c/98C756:Crimson Pact]");
+			Tooltip.SetDefault("+10% summon damage\n"
+			+"Every 7 seconds minions deal 70% increased damage for 7 seconds.");
 			Item.value = Item.buyPrice(0, 0, 10, 0);
 			Item.rare = ItemRarityID.Green;
 
@@ -35,7 +36,9 @@ namespace alxnaccessories.Items.EarlyGame
 			}
 
 			if (pactEnabled) {
-				player.GetDamage(DamageClass.Summon) += 0.8f;
+				player.GetDamage(DamageClass.Summon) += 0.7f;
+			} else {
+				player.GetDamage(DamageClass.Summon) += 0.1f;
 			}
 		}
 		

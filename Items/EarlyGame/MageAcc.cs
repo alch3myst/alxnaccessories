@@ -10,7 +10,7 @@ namespace alxnaccessories.Items.EarlyGame
 	public class MageAcc : ModItem {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Cosmic Burn");
+			DisplayName.SetDefault("[c/98C756:Cosmic Burn]");
 			Tooltip.SetDefault("Magic hits deals 80% of the damage as burn.");
 			Item.value = Item.buyPrice(0, 0, 10, 0);
 			Item.rare = ItemRarityID.Green;
@@ -52,8 +52,8 @@ namespace alxnaccessories.Items.EarlyGame
 		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
 			if (mageAccOn && proj.DamageType == DamageClass.Magic) {
-				target.GetGlobalNPC<MageAccNPCDebuff>().burnDamage = (int)(damage * 0.8f);
-				target.AddBuff(ModContent.BuffType<MageAccDebuff>(), 250);
+				target.GetGlobalNPC<CosmicBurnNPCDebuff>().burnDamage = (int)(damage * 0.8f);
+				target.AddBuff(ModContent.BuffType<CosmicBurnDebuff>(), 250);
 			}
 		}
 	}

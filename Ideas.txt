@@ -1,7 +1,25 @@
-Early game
+-- Early game
 
-pre Eye
+-- Mid game
 
-Shockwave Flash
-- On every meele hit, create a shockwave around the enemy
-that deals 80% of the damage
+All classes:
+
+
+-Melee:
+
+Predator:
+
+
+-Archer:
+
+-Summon:
+
+-Mage:
+
+-- End Game
+
+-Archer:
+
+Cosmic motion
+
+Nebula Predator:

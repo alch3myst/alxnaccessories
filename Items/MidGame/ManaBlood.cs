@@ -3,15 +3,16 @@ using Terraria.ID;
 using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 
-namespace alxnaccessories.Items 
+namespace alxnaccessories.Items.MidGame
 {
 	public class ManaBlood : ModItem {
 		public override void SetStaticDefaults()
 		{
+			DisplayName.SetDefault("[c/f47113:Mana Blood]");
 			Tooltip.SetDefault("Take half of the damage from mana instead of life.\n"
 			+"If you ran out of mana, you take 30% increased damage.");
 			Item.value = Item.buyPrice(0, 5, 0, 0);
-			Item.rare = ItemRarityID.Purple;
+			Item.rare = ItemRarityID.LightRed;
 
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -42,7 +43,7 @@ namespace alxnaccessories.Items
 	public class ManabloodDamagePlayer : ModPlayer {
 		public bool ManaBloodEquiped;
 
-		// Commented cause i dont know if multiplayer will work as intended
+		// Commented cause i don't know if multiplayer will work as intended
 		// public Player player;
 
 		public override void ResetEffects() {

@@ -8,9 +8,9 @@ namespace alxnaccessories.Items.EarlyGame
 	public class ArcherAcc : ModItem {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("One With Nature");
+			DisplayName.SetDefault("[c/98C756:One With Nature]");
 			Tooltip.SetDefault("Cycles between wind and fang\n"
-			+ "Wind: 30% increased atack and 20% movement speed\n"
+			+ "Wind: 30% increased attack and 20% movement speed\n"
 			+ "Fang: 30% increased ranged damage\n");
 
 			Item.value = Item.buyPrice(0, 0, 10, 0);

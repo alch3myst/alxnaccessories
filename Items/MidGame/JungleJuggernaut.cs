@@ -4,12 +4,13 @@ using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 using alxnaccessories.Effects;
 
-namespace alxnaccessories.Items 
+namespace alxnaccessories.Items.MidGame
 {
 	public class JungleJuggernaut : ModItem {
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("99% Decreassed Damage\n"
+			DisplayName.SetDefault("[c/f47113:Jungle Juggernaut]");
+			Tooltip.SetDefault("99% Decreased Damage\n"
 			+ "+20 Armour\n"
 			+ "10% Damage Reduction\n"
 			+ "All hits inflict Juggernaut Debbuf\n"
@@ -18,7 +19,7 @@ namespace alxnaccessories.Items
 			+ "Crits deal a double strike\n"
 			);
 			Item.value = Item.buyPrice(0, 5, 0, 0);
-			Item.rare = ItemRarityID.Purple;
+			Item.rare = ItemRarityID.LightRed;
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

@@ -39,6 +39,8 @@ namespace alxnaccessories.Effects
 		{
 			if (JuggernautDebuff) {
 
+				npc.buffImmune[ModContent.BuffType<JuggernautDebuff>()] = false;
+
 				long currentTime = System.DateTimeOffset.Now.ToUnixTimeMilliseconds();
 				npc.lifeRegen -= 30;
 

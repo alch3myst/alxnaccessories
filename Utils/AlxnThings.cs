@@ -1,7 +1,7 @@
 using Terraria.ID;
 
 
-namespace alxnaccessories.Things
+namespace alxnaccessories.AlxUtils
 {
 	public class Loggers {
 		public void Logger(string Literal) {
