@@ -10,23 +10,30 @@ namespace alxnaccessories.Items.EarlyGame
 	public class MageAcc : ModItem {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("[c/98C756:Cosmic Burn]");
+			DisplayName.SetDefault("Cosmic Burn");
 			Tooltip.SetDefault("Magic hits deals 80% of the damage as burn.");
-			Item.value = Item.buyPrice(0, 0, 10, 0);
+		}
+
+
+		private Item it;
+		public override void SetDefaults() {
+			it = Item;
+			
 			Item.rare = ItemRarityID.Green;
+
+			Item.width = 40;
+			Item.height = 40;
+			Item.accessory = true;
+
+			Item.value = Item.buyPrice(0, 0, 10, 0);
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
-		public override void SetDefaults() {
-			Item.width = 40;
-			Item.height = 40;
-			Item.accessory = true;
-		}
-
-
 		public override void UpdateAccessory(Player player, bool hideVisual) {
 			player.GetModPlayer<MageAccPlayer>().mageAccOn = true;
+
+			if (player.GetModPlayer<AlxnGlobalPlayer>().GSyntheses) it.rare = ItemRarityID.Red; else it.rare = ItemRarityID.Green;
 		}
 
 
@@ -42,16 +49,20 @@ namespace alxnaccessories.Items.EarlyGame
 
 
 	public class MageAccPlayer : ModPlayer {
-		// Things.Loggers lg = new Things.Loggers();
 		public bool mageAccOn;
+		public bool synth;
 
 		public override void ResetEffects() {
 			mageAccOn = false;
+			synth = false;
 		}
 
 		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
 			if (mageAccOn && proj.DamageType == DamageClass.Magic) {
+
+				target.GetGlobalNPC<CosmicBurnNPCDebuff>().StrongEffect = Player.GetModPlayer<AlxnGlobalPlayer>().GSyntheses;
+				
 				target.GetGlobalNPC<CosmicBurnNPCDebuff>().burnDamage = (int)(damage * 0.8f);
 				target.AddBuff(ModContent.BuffType<CosmicBurnDebuff>(), 250);
 			}

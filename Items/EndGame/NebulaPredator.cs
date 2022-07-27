@@ -11,7 +11,7 @@ namespace alxnaccessories.Items.EndGame
 	public class NebulaPredator : ModItem {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("[c/f7073f:Nebula Predator]");
+			DisplayName.SetDefault("Nebula Predator");
 			Tooltip.SetDefault(
 				"30% melee damage\n"
 				+ "20% melee critical strike chance\n"
@@ -22,28 +22,27 @@ namespace alxnaccessories.Items.EndGame
 				+ "and strikes the enemy\n"
 				+ "applying cosmic burn by half of this damage."
 			);
-
-			Item.value = Item.buyPrice(0, 1, 0, 0);
-			Item.rare = ItemRarityID.Purple;
-
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() {
 			Item.width = 40;
 			Item.height = 40;
 			Item.accessory = true;
+			Item.value = Item.buyPrice(5, 0, 0, 0);
+			Item.rare = ItemRarityID.Purple;
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 
 		public override void UpdateAccessory(Player player, bool hideVisual) {
-			if (player.GetModPlayer<PredatorPlayer>().PredatorOn) { return; }
+			if (player.GetModPlayer<AlxnGlobalPlayer>().GPredator) { return; }
 
 			player.GetDamage(DamageClass.Melee) += 0.3f;
 			player.GetCritChance(DamageClass.Melee) += 20f;
 			player.GetAttackSpeed(DamageClass.Melee) += 0.2f;
 
-			player.GetModPlayer<NebulaPredatorPlayer>().PredatorOn = true;
+			player.GetModPlayer<NebulaPredatorPlayer>().NebulaPredatorOn = true;
 		}
 
 		public override void AddRecipes() {
@@ -51,16 +50,16 @@ namespace alxnaccessories.Items.EndGame
 				.AddIngredient(ModContent.ItemType<Predator>())
 				.AddIngredient(ItemID.LunarBar, 2)
 				.AddIngredient(ItemID.FragmentNebula, 5)
-				.AddTile(TileID.WorkBenches)
+				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}
 	}
 
 	public class NebulaPredatorPlayer : ModPlayer {
-		public bool PredatorOn;
+		public bool NebulaPredatorOn;
 		public override void ResetEffects()
 		{
-			PredatorOn = false;
+			NebulaPredatorOn = false;
 		}
 
 		public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
@@ -74,7 +73,7 @@ namespace alxnaccessories.Items.EndGame
 		}
 
 		private void Pred(NPC target, int damage, bool crit, Projectile proj = null) {
-			if (!PredatorOn) return;
+			if (!NebulaPredatorOn) return;
 			if (proj != null) {
 				if (proj.DamageType != DamageClass.Melee) return;
 			}

@@ -8,22 +8,22 @@ namespace alxnaccessories.Items.MidGame
 	public class LastBreath : ModItem {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("[c/f47113:Last Breath]");
+			DisplayName.SetDefault("Last Breath");
 			Tooltip.SetDefault(
 				"Bellow 50% health, deals 20% more damage\n"
 				+ "deals 500% more damage if you have 1 life left\n"
 			);
 
-			Item.value = Item.buyPrice(0, 1, 0, 0);
-			Item.rare = ItemRarityID.LightRed;
-
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() {
 			Item.width = 40;
 			Item.height = 40;
 			Item.accessory = true;
+			Item.value = Item.buyPrice(0, 5, 0, 0);
+			Item.rare = ItemRarityID.Orange;
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 

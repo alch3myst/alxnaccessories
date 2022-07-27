@@ -11,21 +11,21 @@ namespace alxnaccessories.Items.EarlyGame {
 	public class WarriorNecklaces : ModItem {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("[c/98C756:Broken Warrior Necklace]");
+			DisplayName.SetDefault("Broken Warrior Necklace");
 			Tooltip.SetDefault("+10% Melee Damage"
 			+"\nTrue melee hits also strike nearby enemies"
 			+"\ndealing 50% of the original damage"
 			);
-			Item.value = Item.buyPrice(0, 0, 30, 0);
-			Item.rare = ItemRarityID.Green;
-
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() {
 			Item.width = 40;
 			Item.height = 40;
 			Item.accessory = true;
+			Item.value = Item.buyPrice(0, 0, 30, 0);
+			Item.rare = ItemRarityID.Green;
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual) {

@@ -1,25 +1,10 @@
--- Early game
-
--- Mid game
-
-All classes:
-
-
--Melee:
-
-Predator:
-
-
--Archer:
-
--Summon:
-
--Mage:
-
 -- End Game
 
--Archer:
+Summon:
+Upgrade to sons
+All hits strikes a additional time, scaling with maximum number of minions.
 
-Cosmic motion
-
-Nebula Predator:
+Mage:
+Syntheses
+Cycle between elements, each dealing more damage or debuffing the enemy
+The more u cast, more damage deals

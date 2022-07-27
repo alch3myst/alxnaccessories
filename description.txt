@@ -3,9 +3,32 @@ If you have a cool idea comment here on steam, and i will try to implement the b
 
 PS: That's a side project, something i will work on weekends
 
+Accessories List
+
+End Game:
+(Ranged) Cosmic motion - Each time you hit a enemy, you get stronger and faster
+(Melee)  Nebula Predator - Your damage accumulates on enemies, then explodes, dealing a lot of damage
+(Summon) Life From Dust - Maximum minions and damage scale with life, and do tons of damage
+(Mage)   Name here - Cycles between 4 elements and can influence another items!
+
+Mid Game:
+(Ranged) Archer motion - Weaker versions of Cosmic motion
+(Melee)  Predator - Weaker versions of Nebula Predator
+(Mage)   Under Pressure - After hitting a enemy 5 times, gain a buff that lasts as long your mana don't fill up
+(Summon) Sons of my Blood - The more life you have, more minions you gain
+(All)    Jungle Juggernaut - Your armor is your damage now, scaling with life and melee crit
+(All)    Last Breath - Deals a massive amount of damage before death, and some damage increase while on low life
+(All)    Mana Blood - Takes Half of the damage from the mana, but take more damage if you ran out of mana
+(All)    Resilience - Take less damage on low life, but the more life you have, less damage you take
+
+Early Game:
+(Ranged) One With Nature - Switch between two modes, one gives speed and the other damage
+(Melee)  Broken Warrior Necklace - All true melee hits also strike nearby enemies
+(Summon) Crimson Pact - Your minions deal 70% more damage from time to time
+(Mage)   Cosmic Burn - All your hits burn enemies
+
 
 Todo list:
-
 -Make pvp versions of stuff.
 -Learn pixel art to rework all sprites.
 -Finish endgame accessories.

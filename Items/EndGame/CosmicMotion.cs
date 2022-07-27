@@ -11,7 +11,7 @@ namespace alxnaccessories.Items.EndGame
 	public class CosmicMotion : ModItem {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("[c/f7073f:Cosmic Motion]");
+			DisplayName.SetDefault("Cosmic Motion");
 			Tooltip.SetDefault("Gain cosmic stack on hit\n"
 			+ "Loses 5 stacks if you take damage \n\n"
 			+ "Each stack gives\n"
@@ -22,22 +22,20 @@ namespace alxnaccessories.Items.EndGame
 			+ "Inflict cosmic burn with 10 stacks"
 			);
 
-			Item.value = Item.buyPrice(1, 0, 0, 0);
-			Item.rare = ItemRarityID.Purple;
-
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() {
 			Item.width = 40;
 			Item.height = 40;
 			Item.accessory = true;
+			Item.value = Item.buyPrice(5, 0, 0, 0);
+			Item.rare = ItemRarityID.Red;
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public int Stacks;
 		public override void UpdateAccessory(Player player, bool hideVisual) {
-			if (player.GetModPlayer<ArcherMotionPlayer>().amEquipped) {return;}
-
 			player.GetModPlayer<CosmicMotionPlayer>().amEquipped = true;	
 			player.GetModPlayer<CosmicMotionPlayer>().amRef = this;
 
@@ -53,7 +51,7 @@ namespace alxnaccessories.Items.EndGame
 				.AddIngredient(ModContent.ItemType<ArcherMotion>())
 				.AddIngredient(ItemID.LunarBar, 2)
 				.AddIngredient(ItemID.WingsVortex)
-				.AddTile(TileID.WorkBenches)
+				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}
 	}
@@ -71,6 +69,8 @@ namespace alxnaccessories.Items.EndGame
 		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
 			if (amRef == null) { return; }
+			if (Player.GetModPlayer<AlxnGlobalPlayer>().GMotion) { amRef.Stacks = 0; return; }
+
 			if (!amEquipped || proj.DamageType != DamageClass.Ranged) {return;}
 
 			if (amRef.Stacks < 10) {

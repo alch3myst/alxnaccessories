@@ -1,3 +1,3 @@
-displayName = Alxn - Accessories (Beta)
+displayName = Alxn - Accessories
 author = Alch3myst
-version = 0.3
+version = 1.0

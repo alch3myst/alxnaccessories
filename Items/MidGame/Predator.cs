@@ -10,7 +10,7 @@ namespace alxnaccessories.Items.MidGame
 	public class Predator : ModItem {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("[c/f47113:Predator]");
+			DisplayName.SetDefault("Predator");
 			Tooltip.SetDefault(
 				"10% melee damage\n"
 				+ "Melee critical hits grants attack speed\n"
@@ -19,16 +19,16 @@ namespace alxnaccessories.Items.MidGame
 				+ "and strikes the enemy."
 			);
 
-			Item.value = Item.buyPrice(0, 1, 0, 0);
-			Item.rare = ItemRarityID.LightRed;
-
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() {
 			Item.width = 40;
 			Item.height = 40;
 			Item.accessory = true;
+			Item.value = Item.buyPrice(0, 5, 0, 0);
+			Item.rare = ItemRarityID.Orange;
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 
@@ -36,6 +36,7 @@ namespace alxnaccessories.Items.MidGame
 			player.GetDamage(DamageClass.Melee) += 0.1f;
 
 			player.GetModPlayer<PredatorPlayer>().PredatorOn = true;
+			player.GetModPlayer<AlxnGlobalPlayer>().GPredator = true;
 		}
 
 		public override void AddRecipes() {
@@ -53,6 +54,7 @@ namespace alxnaccessories.Items.MidGame
 		public bool PredatorOn;
 		public override void ResetEffects()
 		{
+			Player.GetModPlayer<AlxnGlobalPlayer>().GPredator = false;
 			PredatorOn = false;
 		}
 

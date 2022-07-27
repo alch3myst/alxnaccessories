@@ -1,4 +1,6 @@
 using Terraria.ID;
+using Terraria;
+using Terraria.ModLoader;
 
 
 namespace alxnaccessories.AlxUtils
@@ -8,4 +10,12 @@ namespace alxnaccessories.AlxUtils
 			Terraria.Chat.ChatHelper.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral (Literal), Colors.CoinCopper);
 		}
 	}
+
+	public class AlxnPlayer
+    {
+		public void CheckAcc()
+        {
+			
+        }
+    }
 }

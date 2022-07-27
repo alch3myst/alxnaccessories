@@ -9,7 +9,7 @@ namespace alxnaccessories.Items.MidGame
 	public class JungleJuggernaut : ModItem {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("[c/f47113:Jungle Juggernaut]");
+			DisplayName.SetDefault("Jungle Juggernaut");
 			Tooltip.SetDefault("99% Decreased Damage\n"
 			+ "+20 Armour\n"
 			+ "10% Damage Reduction\n"
@@ -18,16 +18,16 @@ namespace alxnaccessories.Items.MidGame
 			+ "and scales with current life\n"
 			+ "Crits deal a double strike\n"
 			);
-			Item.value = Item.buyPrice(0, 5, 0, 0);
-			Item.rare = ItemRarityID.LightRed;
-
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() {
 			Item.width = 40;
 			Item.height = 40;
 			Item.accessory = true;
+			Item.value = Item.buyPrice(0, 5, 0, 0);
+			Item.rare = ItemRarityID.Orange;
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual) {

@@ -8,20 +8,19 @@ namespace alxnaccessories.Items.MidGame
 	public class ManaBlood : ModItem {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("[c/f47113:Mana Blood]");
+			DisplayName.SetDefault("Mana Blood");
 			Tooltip.SetDefault("Take half of the damage from mana instead of life.\n"
 			+"If you ran out of mana, you take 30% increased damage.");
-			Item.value = Item.buyPrice(0, 5, 0, 0);
-			Item.rare = ItemRarityID.LightRed;
-
-
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() {
 			Item.width = 40;
 			Item.height = 40;
 			Item.accessory = true;
+			Item.value = Item.buyPrice(0, 5, 0, 0);
+			Item.rare = ItemRarityID.Orange;
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual) {

@@ -11,32 +11,34 @@ namespace alxnaccessories.Items.MidGame
 	public class SonsOfMyBlood : ModItem {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("[c/f47113:Sons of my blood]");
+			DisplayName.SetDefault("Sons of my blood");
 			Tooltip.SetDefault(
 				"+1 max minion per 150 life\n"
 				+ "10% Increased summon damage\n"
 				+ "minions have a 4% chance to inflict cosmic burn by 2x of damage\n"
 			);
 
-			Item.value = Item.buyPrice(0, 1, 0, 0);
-			Item.rare = ItemRarityID.LightRed;
-
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() {
 			Item.width = 40;
 			Item.height = 40;
 			Item.accessory = true;
+			Item.value = Item.buyPrice(0, 5, 0, 0);
+			Item.rare = ItemRarityID.Orange;
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual) {
+			if (player.GetModPlayer<AlxnGlobalPlayer>().GFromDust) { return; }
+
 			player.maxMinions += 1 * player.statLifeMax / 150;
 			player.GetDamage(DamageClass.Summon) += 0.1f;
 			player.GetModPlayer<SonsPlayer>().sonsOn = true;
+
+			player.GetModPlayer<AlxnGlobalPlayer>().GSons = true;
 		}
-
-
 
 		public override void AddRecipes() {
 			CreateRecipe()
@@ -54,6 +56,7 @@ namespace alxnaccessories.Items.MidGame
 		public override void ResetEffects()
 		{
 			sonsOn = false;
+			Player.GetModPlayer<AlxnGlobalPlayer>().GSons = false;
 		}
 
 		private AlxUtils.Loggers lg = new AlxUtils.Loggers();
@@ -61,6 +64,8 @@ namespace alxnaccessories.Items.MidGame
 		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
 			if (sonsOn && proj.DamageType == DamageClass.Summon) {
+				if (Player.GetModPlayer<AlxnGlobalPlayer>().GFromDust) { return; }
+
 				if (0.04f >= random.NextFloat()) {
 					target.GetGlobalNPC<CosmicBurnNPCDebuff>().StrongEffect = true;
 					target.GetGlobalNPC<CosmicBurnNPCDebuff>().burnDamage = damage * 2;

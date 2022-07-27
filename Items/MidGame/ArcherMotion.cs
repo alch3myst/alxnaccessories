@@ -21,17 +21,17 @@ namespace alxnaccessories.Items.MidGame {
 			+ "5% Increased Movement Speed\n"
 			+ "5% Critical strike chance\n"
 			);
-			DisplayName.SetDefault("[c/f47113:Archer's Motion]");
-			Item.value = Item.buyPrice(0, 5, 0, 0);
-			Item.rare = ItemRarityID.LightRed;
-
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			DisplayName.SetDefault("Archer's Motion");
 		}
 
 		public override void SetDefaults() {
 			Item.width = 40;
 			Item.height = 40;
 			Item.accessory = true;
+			Item.value = Item.buyPrice(0, 5, 0, 0);
+			Item.rare = ItemRarityID.Orange;
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual) {
@@ -60,6 +60,7 @@ namespace alxnaccessories.Items.MidGame {
 
 		public override void ResetEffects()
 		{
+			Player.GetModPlayer<AlxnGlobalPlayer>().GMotion = false;
 			amEquipped = false;
 		}
 
