@@ -51,7 +51,7 @@ namespace alxnaccessories.Items.EndGame
 				.AddIngredient(ModContent.ItemType<ArcherMotion>())
 				.AddIngredient(ItemID.LunarBar, 2)
 				.AddIngredient(ItemID.WingsVortex)
-				.AddTile(TileID.MythrilAnvil)
+				.AddTile(TileID.LunarCraftingStation)
 				.Register();
 		}
 	}

@@ -45,10 +45,10 @@ namespace alxnaccessories.Items.EndGame
 
 		public override void AddRecipes() {
 			CreateRecipe()
-				.AddIngredient(ItemID.TikiMask)
-				.AddIngredient(ItemID.HerculesBeetle)
-				.AddIngredient(ItemID.OrangeTorch, 5)
-				.AddTile(TileID.TinkerersWorkbench)
+				.AddIngredient(ModContent.ItemType<SonsOfMyBlood>())
+				.AddIngredient(ItemID.FragmentStardust, 5)
+				.AddIngredient(ItemID.LunarBar)
+				.AddTile(TileID.LunarCraftingStation)
 				.Register();
 		}
 	}

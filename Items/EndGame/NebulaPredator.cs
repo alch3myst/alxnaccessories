@@ -50,7 +50,7 @@ namespace alxnaccessories.Items.EndGame
 				.AddIngredient(ModContent.ItemType<Predator>())
 				.AddIngredient(ItemID.LunarBar, 2)
 				.AddIngredient(ItemID.FragmentNebula, 5)
-				.AddTile(TileID.MythrilAnvil)
+				.AddTile(TileID.LunarCraftingStation)
 				.Register();
 		}
 	}

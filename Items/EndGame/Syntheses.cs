@@ -4,6 +4,8 @@ using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 using alxnaccessories.Effects.SysthesesEffects;
 
+using alxnaccessories.Items.MidGame;
+
 namespace alxnaccessories.Items.EndGame {
 	public class Syntheses : ModItem {
 		public override void SetStaticDefaults()
@@ -39,8 +41,12 @@ namespace alxnaccessories.Items.EndGame {
 
 		public override void AddRecipes() {
 			CreateRecipe()
-				.AddIngredient(ItemID.BlueJay)
-				.AddTile(TileID.WorkBenches)
+				.AddIngredient(ItemID.FragmentStardust, 5)
+				.AddIngredient(ItemID.FragmentSolar, 5)
+				.AddIngredient(ItemID.FragmentVortex, 5)
+				.AddIngredient(ItemID.FragmentNebula, 5)
+				.AddIngredient(ItemID.LunarBar)
+				.AddTile(TileID.LunarCraftingStation)
 				.Register();
 		}
 	}
