@@ -21,8 +21,8 @@ namespace alxnaccessories.Items.EarlyGame
 			
 			Item.rare = ItemRarityID.Green;
 
-			Item.width = 40;
-			Item.height = 40;
+			Item.width = 32;
+			Item.height = 30;
 			Item.accessory = true;
 
 			Item.value = Item.buyPrice(0, 0, 10, 0);

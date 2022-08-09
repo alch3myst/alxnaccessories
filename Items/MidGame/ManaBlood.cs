@@ -10,7 +10,7 @@ namespace alxnaccessories.Items.MidGame
 		{
 			DisplayName.SetDefault("Mana Blood");
 			Tooltip.SetDefault("Take half of the damage from mana instead of life.\n"
-			+"If you ran out of mana, you take 30% increased damage.");
+			+"If you ran out of mana, you take 15% increased damage.");
 		}
 
 		public override void SetDefaults() {
@@ -58,7 +58,7 @@ namespace alxnaccessories.Items.MidGame
 				int manaDamage = Utils.Clamp<int>( (int)( (damage - Player.statDefense) * (1f-Player.endurance)) , 1, damage) / 2;
 
 				if (Player.statMana - manaDamage <= 0) {
-					damage = (int)( (damage - Player.statMana) * 1.3f) ;
+					damage = (int)( (damage - Player.statMana) * 1.15f) ;
 					Player.statMana = 0;
 				} else {
 					damage = halfDamage;
@@ -74,7 +74,7 @@ namespace alxnaccessories.Items.MidGame
 				int manaDamage = Utils.Clamp<int>( (int)( (damage - Player.statDefense) * (1f-Player.endurance)) , 1, damage) / 2;
 
 				if (Player.statMana - manaDamage <= 0) {
-					damage = (int)( (damage - Player.statMana) * 1.3f) ;
+					damage = (int)( (damage - Player.statMana) * 1.15f) ;
 					Player.statMana = 0;
 				} else {
 					damage = halfDamage;

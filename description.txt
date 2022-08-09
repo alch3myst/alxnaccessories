@@ -7,8 +7,8 @@ Accessories List
 
 End Game:
 (Ranged) Cosmic motion - Each time you hit a enemy, you get stronger and faster
-(Melee)  Nebula Predator - Your damage accumulates on enemies, then explodes, dealing a lot of damage
-(Summon) Life From Dust - Maximum minions and damage scale with life, and do tons of damage
+(Melee)  Nebula Predator - Your damage accumulates on enemies, and deals a lot of damage
+(Summon) Life From Dust - Maximum minions and damage scale with life
 (Mage)   Name here - Cycles between 4 elements and can influence another items!
 
 Mid Game:

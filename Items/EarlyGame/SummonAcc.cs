@@ -14,8 +14,8 @@ namespace alxnaccessories.Items.EarlyGame
 		}
 
 		public override void SetDefaults() {
-			Item.width = 40;
-			Item.height = 40;
+			Item.width = 31;
+			Item.height = 31;
 			Item.accessory = true;
 			Item.value = Item.buyPrice(0, 0, 10, 0);
 			Item.rare = ItemRarityID.Green;

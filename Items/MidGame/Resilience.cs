@@ -10,7 +10,7 @@ namespace alxnaccessories.Items.MidGame
 		{
 			DisplayName.SetDefault("Resilience");
 			Tooltip.SetDefault(
-				"+10 armour\n"
+				"+10 armor\n"
 				+ "Bellow 50% health, take 5% less damage per 50 missing\n"
 				+ "health"
 			);

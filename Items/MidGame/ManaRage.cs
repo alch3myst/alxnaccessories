@@ -36,10 +36,10 @@ namespace alxnaccessories.Items.MidGame
 
 			if (player.GetModPlayer<ManaRagePlayer>().EffectOn) {
 				player.manaRegen += 20;
-				player.GetDamage(DamageClass.Magic) += (player.statManaMax * 0.1f) / 100;
+				player.GetDamage(DamageClass.Magic) += (player.statManaMax2 * 0.0012f);
 			}
 
-			if (1 - (player.statMana / player.statManaMax) <= 0.05f || player.statMana <= 10) {
+			if (1 - (player.statMana / player.statManaMax2) <= 0.05f || player.statMana <= 10) {
 				player.GetModPlayer<ManaRagePlayer>().EffectOn = false;
 				player.GetModPlayer<ManaRagePlayer>().hits = 0;
 			}

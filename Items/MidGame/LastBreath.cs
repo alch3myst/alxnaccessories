@@ -11,7 +11,7 @@ namespace alxnaccessories.Items.MidGame
 			DisplayName.SetDefault("Last Breath");
 			Tooltip.SetDefault(
 				"Bellow 50% health, deals 20% more damage\n"
-				+ "deals 500% more damage if you have 1 life left\n"
+				+ "gain a insane amount of damage if you have 1 life left\n"
 			);
 
 		}
@@ -31,6 +31,7 @@ namespace alxnaccessories.Items.MidGame
 			if (player.statLife < (player.statLifeMax / 2) ) {
 
 				if (player.statLife == 1) {
+					player.GetDamage(DamageClass.Generic) *= 1.2f;
 					player.GetDamage(DamageClass.Generic) += 5f;
 					return;
 				}

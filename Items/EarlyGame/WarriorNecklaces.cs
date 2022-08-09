@@ -19,8 +19,8 @@ namespace alxnaccessories.Items.EarlyGame {
 		}
 
 		public override void SetDefaults() {
-			Item.width = 40;
-			Item.height = 40;
+			Item.width = 24;
+			Item.height = 30;
 			Item.accessory = true;
 			Item.value = Item.buyPrice(0, 0, 30, 0);
 			Item.rare = ItemRarityID.Green;
@@ -57,11 +57,10 @@ namespace alxnaccessories.Items.EarlyGame {
 			if (WarriorNecklacesEquiped == true) {
 				foreach (NPC npc in Main.npc) {
 					float dist = Vector2.Distance(npc.Center, target.Center);
-					if (dist / 16f <= 12 && !npc.friendly && npc.life >= 0) {
+					if (dist / 16f <= 12 && !npc.friendly && npc.life >= 0 && (npc.HasValidTarget || npc.HasNPCTarget) ) {
 						npc.StrikeNPC(damage/2, knockback, 0, crit);
 						Dust.NewDustDirect(npc.Center, 18,18, ModContent.DustType<WarriorNecklacesDust>());
 						Dust.NewDustPerfect(npc.Center,	DustID.Blood);
-						npc.checkDead();
 					}
 				}
 			}
