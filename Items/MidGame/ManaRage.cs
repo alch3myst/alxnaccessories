@@ -2,24 +2,18 @@ using Terraria;
 using Terraria.ID;
 using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
+using Terraria.Localization;
+using System;
 
 namespace alxnaccessories.Items.MidGame
 {
 	public class ManaRage : ModItem {
 		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Under Pressure");
-			Tooltip.SetDefault(
-				"10% Increased Magic Damage\n"
-				+ "after 5 hit's gain Mana Rage\n"
-				+ "witch gives you Mana regeneration\n"
-				+ "and damage increases based on maximum mana\n"
-				+ "Resets if mana is higher then 95% or lower then 10\n"
-			);
+		{}
 
-		}
+        public static readonly int additiveMana = 30;
 
-		private Item it;
+        private Item it;
 		public override void SetDefaults() {
 			it = Item;
 			Item.width = 40;
@@ -31,12 +25,14 @@ namespace alxnaccessories.Items.MidGame
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
-		public override void UpdateAccessory(Player player, bool hideVisual) {
-			player.GetDamage(DamageClass.Magic) += 0.1f;
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(additiveMana);
 
+        public override void UpdateAccessory(Player player, bool hideVisual) {
+			player.statManaMax2 += additiveMana;
 			if (player.GetModPlayer<ManaRagePlayer>().EffectOn) {
-				player.manaRegen += 20;
-				player.GetDamage(DamageClass.Magic) += (player.statManaMax2 * 0.0012f);
+				player.manaRegen += 50;
+				player.lifeRegen += 10;
+                player.GetDamage(DamageClass.Magic) += player.statManaMax2 / 260f;
 			}
 
 			if (1 - (player.statMana / player.statManaMax2) <= 0.05f || player.statMana <= 10) {
@@ -45,16 +41,15 @@ namespace alxnaccessories.Items.MidGame
 			}
 
 			player.GetModPlayer<ManaRagePlayer>().manaRageOn = true;
-
-			if (player.GetModPlayer<AlxnGlobalPlayer>().GSyntheses) it.rare = ItemRarityID.Red; else it.rare = ItemRarityID.Orange;
 		}
 
 
 		public override void AddRecipes() {
 			CreateRecipe()
-				.AddIngredient(ItemID.ManaCrystal)
+				.AddIngredient(ItemID.GoldBar)
 				.AddIngredient(ItemID.StarCloak)
-				.AddTile(TileID.TinkerersWorkbench)
+				.AddIngredient(ItemID.Ruby, 3)
+                .AddTile(TileID.TinkerersWorkbench)
 				.Register();
 		}
 	}
@@ -70,7 +65,7 @@ namespace alxnaccessories.Items.MidGame
 
 		public int hits;
 
-		public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)/* tModPorter If you don't need the Projectile, consider using OnHitNPC instead */
 		{
 			ManaRageHit(proj, Main.LocalPlayer);
 		}
@@ -84,10 +79,11 @@ namespace alxnaccessories.Items.MidGame
 					EffectOn = true;
 
 					if (!player.GetModPlayer<AlxnGlobalPlayer>().GSyntheses) return;
+
 					tick++;
 					if (tick % 10 == 0) {
 						tick = 0;
-						player.statMana += 5;
+						player.statMana += 7;
 					}
 				}
 			}

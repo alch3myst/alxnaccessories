@@ -7,14 +7,7 @@ namespace alxnaccessories.Items.MidGame
 {
 	public class LastBreath : ModItem {
 		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Last Breath");
-			Tooltip.SetDefault(
-				"Bellow 50% health, deals 20% more damage\n"
-				+ "gain a insane amount of damage if you have 1 life left\n"
-			);
-
-		}
+		{}
 
 		public override void SetDefaults() {
 			Item.width = 40;
@@ -29,14 +22,13 @@ namespace alxnaccessories.Items.MidGame
 
 		public override void UpdateAccessory(Player player, bool hideVisual) {
 			if (player.statLife < (player.statLifeMax / 2) ) {
-
 				if (player.statLife == 1) {
-					player.GetDamage(DamageClass.Generic) *= 1.2f;
 					player.GetDamage(DamageClass.Generic) += 5f;
+					player.GetDamage(DamageClass.Generic) *= 1.2f;
 					return;
-				}
-				
-				player.GetDamage(DamageClass.Generic) += 0.2f;
+				} else {
+                    player.GetDamage(DamageClass.Generic) += 0.2f;
+                }
 			}
 		}
 

@@ -6,15 +6,14 @@ namespace alxnaccessories.Effects
 	public class PredatorBuff : ModBuff
 	{
 		public override void SetStaticDefaults() {
-			DisplayName.SetDefault("Predator");
-			Description.SetDefault("Increased Attack Speed");
 			Main.debuff[Type] = false;
 			Main.buffNoSave[Type] = true;
 		}
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetAttackSpeed(DamageClass.Melee) += 0.2f;
-		}
+			player.GetAttackSpeed(DamageClass.Melee) += 0.5f;
+			player.moveSpeed += 0.3f;
+        }
 	}
 }

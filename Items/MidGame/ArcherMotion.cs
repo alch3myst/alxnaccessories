@@ -12,17 +12,7 @@ namespace alxnaccessories.Items.MidGame {
 
 		public int Stacks;
 
-		public override void SetStaticDefaults()
-		{
-			Tooltip.SetDefault("Gain one motion stack on hit\n"
-			+ "Loses all stacks if you take damage \n\n"
-			+ "Each stack gives\n"
-			+ "9% Increased Damage\n"
-			+ "5% Increased Movement Speed\n"
-			+ "5% Critical strike chance\n"
-			);
-			DisplayName.SetDefault("Archer's Motion");
-		}
+		public override void SetStaticDefaults() {}
 
 		public override void SetDefaults() {
 			Item.width = 40;
@@ -38,7 +28,9 @@ namespace alxnaccessories.Items.MidGame {
 			player.GetModPlayer<ArcherMotionPlayer>().amEquipped = true;
 			player.GetModPlayer<ArcherMotionPlayer>().amRef = this;
 
-			player.GetDamage(DamageClass.Ranged) += 0.09f * Stacks;
+            player.GetModPlayer<AlxnGlobalPlayer>().GMotion = true;
+
+            player.GetDamage(DamageClass.Ranged) += 0.09f * Stacks;
 			player.moveSpeed += 0.05f * Stacks;
 			player.GetCritChance(DamageClass.Ranged) += 5f * Stacks;
 		}
@@ -65,7 +57,7 @@ namespace alxnaccessories.Items.MidGame {
 		}
 
 
-		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)/* tModPorter If you don't need the Projectile, consider using ModifyHitNPC instead */
 		{
 			if (amRef == null) { return; }
 			if (!amEquipped || proj.DamageType != DamageClass.Ranged) {return;}
@@ -74,15 +66,15 @@ namespace alxnaccessories.Items.MidGame {
 			}
 		}
 
-		public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+		public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
 		{
-			if (amRef == null) { return; }
+			if (!amEquipped || amRef == null) return;
 			amRef.Stacks = 0;
 		}
-		public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+		public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
 		{
-			if (amRef == null) { return; }
-			amRef.Stacks = 0;
+            if (!amEquipped || amRef == null) return;
+            amRef.Stacks = 0;
 		}
 
 		public int GetMotionStacks() {

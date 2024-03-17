@@ -10,14 +10,14 @@ namespace alxnaccessories.Items.MidGame
 	public class Predator : ModItem {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Predator");
-			Tooltip.SetDefault(
+			// DisplayName.SetDefault("Predator");
+			/* Tooltip.SetDefault(
 				"10% melee damage\n"
 				+ "Melee critical hits grants attack speed\n"
 				+ "Melee damage accumulates 10 times on enemies\n"
 				+ "After 10 hits, the accumulated damage explode\n"
-				+ "and strikes the enemy."
-			);
+				+ "and strikes the enemy." take 30% more damage
+			); */
 
 		}
 
@@ -33,8 +33,6 @@ namespace alxnaccessories.Items.MidGame
 
 
 		public override void UpdateAccessory(Player player, bool hideVisual) {
-			player.GetDamage(DamageClass.Melee) += 0.1f;
-
 			player.GetModPlayer<PredatorPlayer>().PredatorOn = true;
 			player.GetModPlayer<AlxnGlobalPlayer>().GPredator = true;
 		}
@@ -58,22 +56,20 @@ namespace alxnaccessories.Items.MidGame
 			PredatorOn = false;
 		}
 
-		public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
-		{
-			Pred(target, damage, crit);
-		}
+        public override void ModifyHurt(ref Player.HurtModifiers modifiers)
+        {
+			if (!PredatorOn) return;
+			modifiers.IncomingDamageMultiplier *= 1.1f;
+        }
 
-		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-		{
-			Pred(target, damage, crit, proj);
-		}
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+			if (!PredatorOn) return;
+			if (hit.DamageType != DamageClass.Melee) return;
+			Pred(target, damageDone, hit.Crit);
+        }
 
 		private void Pred(NPC target, int damage, bool crit, Projectile proj = null) {
-			if (!PredatorOn) return;
-			if (proj != null) {
-				if (proj.DamageType != DamageClass.Melee) return;
-			}
-
 			if (crit) Main.LocalPlayer.AddBuff(ModContent.BuffType<PredatorBuff>(), 500, false);
 			target.GetGlobalNPC<PredatorNPC>().stack(target, damage);
 		}
@@ -81,6 +77,7 @@ namespace alxnaccessories.Items.MidGame
 
 	public class PredatorNPC : GlobalNPC {
 		public override bool InstancePerEntity => true;
+		public NPC.HitInfo HitInfo;
 
 		private int predatorStacks = 0;
 		private int totalDamage = 0;
@@ -89,7 +86,8 @@ namespace alxnaccessories.Items.MidGame
 			totalDamage += damage;
 
 			if (predatorStacks >= 10) {
-				target.StrikeNPC(totalDamage, 0, 0);
+				HitInfo.Damage = totalDamage;
+				target.StrikeNPC(HitInfo, true, true);
 
 				predatorStacks = 0;
 				totalDamage = 0;

@@ -10,14 +10,14 @@ namespace alxnaccessories.Items.EndGame {
 	public class Syntheses : ModItem {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Syntheses");
-			Tooltip.SetDefault(
-				"20% Increased magic damage\n"
+			// DisplayName.SetDefault("Syntheses");
+			/* Tooltip.SetDefault(
+				"35% Increased magic damage\n"
 				+ "Cycles between four elements\n"
 				+ "Slowing, Poisoning, Bleeding and Igniting the enemy\n"
 				+ "Hits deals more damage based on element.\n"
 				+ "Syntheses can influence other items.\n"
-			);
+			); */
 		}
 
 		public override void SetDefaults() {
@@ -34,7 +34,7 @@ namespace alxnaccessories.Items.EndGame {
 
 		public override void UpdateAccessory(Player player, bool hideVisual) {
 			player.GetModPlayer<SynthesesPlayer>().SynthesesOn = true;
-			player.GetDamage(DamageClass.Magic) +=  0.2f;
+			player.GetDamage(DamageClass.Magic) +=  0.35f;
 
 			player.GetModPlayer<AlxnGlobalPlayer>().GSyntheses = true;
 		}
@@ -61,56 +61,16 @@ namespace alxnaccessories.Items.EndGame {
 			Player.GetModPlayer<AlxnGlobalPlayer>().GSyntheses = false;
 		}
 
-        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-		{
-			if (SynthesesOn && proj.DamageType == DamageClass.Magic) {
-				SynthesesHit(target, ref damage, ref knockback, ref crit);
-			}
-		}
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (!SynthesesOn) return;
+            if (hit.DamageType != DamageClass.Magic) return;
+            SynthesesHit(ref target, hit.Damage, hit.Crit);
+        }
 
-        public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit) { 
-			if (SynthesesOn && item.DamageType == DamageClass.Magic) {
-				SynthesesHit(target, ref damage, ref knockback, ref crit);
-			}
-		}
-
-		private void SynthesesHit(NPC target, ref int damage, ref float knockback, ref bool crit) {
-			switch (stage) {
-				case 0: // Cold
-					damage += damage/4;
-					target.buffImmune[ModContent.BuffType<SynthesesCold>()] = false;
-					target.AddBuff(ModContent.BuffType<SynthesesCold>(), 150);
-
-					stage++;
-					break;
-
-				case 1: // Lightning
-					damage += damage/3;
-					target.buffImmune[BuffID.Bleeding] = false;
-					target.AddBuff(BuffID.Bleeding, 300);
-
-					stage++;
-					break;
-
-				case 2: // Cosmic
-					damage += damage/2;
-					target.buffImmune[BuffID.Poisoned] = false;
-					target.AddBuff(BuffID.Poisoned, 200);
-
-					stage++;
-					break;
-
-				case 3: // Fire
-					damage += damage;
-					target.buffImmune[BuffID.OnFire3] = false;
-					target.AddBuff(BuffID.OnFire3, 300);
-
-					stage = 0;
-					break;
-
-				default:
-					break;
-			}
+        private void SynthesesHit(ref NPC target, int damage, bool crit) {
+			target.buffImmune[ModContent.BuffType<SynthesesCold>()] = false;
+			target.AddBuff(ModContent.BuffType<SynthesesCold>(), 150);
 		}
 	}
 }

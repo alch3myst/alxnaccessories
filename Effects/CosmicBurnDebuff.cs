@@ -6,8 +6,6 @@ namespace alxnaccessories.Effects
 	public class CosmicBurnDebuff : ModBuff
 	{
 		public override void SetStaticDefaults() {
-			DisplayName.SetDefault("Cosmic Burn");
-			Description.SetDefault("Losing life");
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 		}
@@ -23,6 +21,7 @@ namespace alxnaccessories.Effects
 		public int burnDamage;
 		public bool StrongEffect;
 		public int Tick = 0;
+		public NPC.HitInfo CosmicHitInfo;
 
 		public bool BurnOn;
 		public override void ResetEffects(NPC npc) {
@@ -32,14 +31,22 @@ namespace alxnaccessories.Effects
 		public override void UpdateLifeRegen(NPC npc, ref int damage)
 		{
 			if (BurnOn) {
-				Tick++;
-				if (npc.lifeRegen > 0) { npc.lifeRegen = 0; }
+                npc.buffImmune[ModContent.BuffType<CosmicBurnDebuff>()] = false;
 
-				long currentTime = System.DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                Tick++;
+				if (npc.lifeRegen > 0) { npc.lifeRegen /= 10; }
+
 				if (!StrongEffect) npc.lifeRegen -= burnDamage;
 				
 				if (StrongEffect) {
-					if (Tick % 20 == 0) npc.StrikeNPCNoInteraction(burnDamage, 0, 0, false, true);
+                    CosmicHitInfo.Crit = false;
+                    CosmicHitInfo.Damage = burnDamage;
+
+					if (Tick % 20 == 0)
+					{
+                        npc.StrikeNPC(CosmicHitInfo, true, true);
+						NetMessage.SendStrikeNPC(npc, CosmicHitInfo);
+					}
 				}
 			}
 		}

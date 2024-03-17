@@ -10,15 +10,7 @@ namespace alxnaccessories.Items.MidGame
 {
 	public class SonsOfMyBlood : ModItem {
 		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Sons of my blood");
-			Tooltip.SetDefault(
-				"+1 max minion per 150 life\n"
-				+ "10% Increased summon damage\n"
-				+ "minions have a 4% chance to inflict cosmic burn by 2x of damage\n"
-			);
-
-		}
+		{}
 
 		public override void SetDefaults() {
 			Item.width = 40;
@@ -31,7 +23,8 @@ namespace alxnaccessories.Items.MidGame
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual) {
-			if (player.GetModPlayer<AlxnGlobalPlayer>().GFromDust) { return; }
+            // If from dust is equuiped, this item should not work
+            if (player.GetModPlayer<AlxnGlobalPlayer>().GFromDust) { return; }
 
 			player.maxMinions += 1 * player.statLifeMax / 150;
 			player.GetDamage(DamageClass.Summon) += 0.1f;
@@ -42,10 +35,11 @@ namespace alxnaccessories.Items.MidGame
 
 		public override void AddRecipes() {
 			CreateRecipe()
-				.AddIngredient(ItemID.TikiMask)
+				.AddIngredient(ItemID.Silk)
 				.AddIngredient(ItemID.HerculesBeetle)
-				.AddIngredient(ItemID.OrangeTorch, 5)
-				.AddTile(TileID.TinkerersWorkbench)
+				.AddIngredient(ItemID.OrangeTorch, 6)
+				.AddIngredient(ItemID.GoldBar)
+                .AddTile(TileID.TinkerersWorkbench)
 				.Register();
 		}
 	}
@@ -59,16 +53,16 @@ namespace alxnaccessories.Items.MidGame
 			Player.GetModPlayer<AlxnGlobalPlayer>().GSons = false;
 		}
 
-		private AlxUtils.Loggers lg = new AlxUtils.Loggers();
 		private UnifiedRandom random = new UnifiedRandom();
-		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)/* tModPorter If you don't need the Projectile, consider using ModifyHitNPC instead */
 		{
 			if (sonsOn && proj.DamageType == DamageClass.Summon) {
+				// If from dust is equuiped, this item should not work
 				if (Player.GetModPlayer<AlxnGlobalPlayer>().GFromDust) { return; }
 
-				if (0.04f >= random.NextFloat()) {
-					target.GetGlobalNPC<CosmicBurnNPCDebuff>().StrongEffect = true;
-					target.GetGlobalNPC<CosmicBurnNPCDebuff>().burnDamage = damage * 2;
+				if (0.03f >= random.NextFloat()) {
+					target.GetGlobalNPC<CosmicBurnNPCDebuff>().StrongEffect = false;
+					target.GetGlobalNPC<CosmicBurnNPCDebuff>().burnDamage = proj.damage * 2;
 
 					target.AddBuff(ModContent.BuffType<CosmicBurnDebuff>(), 250);
 				}

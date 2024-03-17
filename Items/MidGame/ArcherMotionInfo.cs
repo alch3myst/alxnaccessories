@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
@@ -10,7 +11,6 @@ namespace alxnaccessories.Items.MidGame
 	{
 		public override void SetStaticDefaults() {
 			// This is the name that will show up when hovering over icon of this info display
-			InfoName.SetDefault("Motion Stacks");
 		}
 
 		// This dictates whether or not this info display should be active
@@ -19,7 +19,7 @@ namespace alxnaccessories.Items.MidGame
 		}
 
 		// Here we can change the value that will be displayed in the game
-		public override string DisplayValue() {
+		public override string DisplayValue(ref Color displayColor, ref Color displayShadowColor)/* tModPorter Suggestion: Set displayColor to InactiveInfoTextColor if your display value is "zero"/shows no valuable information */ {
 			int motionStacks = Main.LocalPlayer.GetModPlayer<ArcherMotionPlayer>().GetMotionStacks();
 			return motionStacks > 0 ? $"{motionStacks} Stacks." : "No Stacks";
 		}

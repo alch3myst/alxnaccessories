@@ -1,0 +1,225 @@
+Buffs: {
+	CosmicBurnDebuff: {
+		DisplayName: Cosmic Burn Debuff
+		Description: Mods.alxnaccessories.Buffs.CosmicBurnDebuff.Description
+	}
+
+	JuggernautDebuff: {
+		DisplayName: Juggernaut Debuff
+		Description: Mods.alxnaccessories.Buffs.JuggernautDebuff.Description
+	}
+
+	PredatorBuff: {
+		DisplayName: Predator Buff
+		Description: Increassed atack and movement speed
+	}
+
+	SynthesesCold: {
+		DisplayName: Syntheses Cold
+		Description: Mods.alxnaccessories.Buffs.SynthesesCold.Description
+	}
+}
+
+InfoDisplays.ArcherMotionInfo.DisplayName: Motion Stacks
+
+Items: {
+	ArcherAcc: {
+		DisplayName: One With Nature
+		Tooltip:
+			'''
+			Cycles between wind and fang each 5 seconds
+			Wind: 30% increased fire rate and 20% movement speed
+			Fang: 10% increased ranged damage +5 base damage
+
+			"The wind flows in my hand like the rage in my spirit"
+			'''
+	}
+
+	MageAcc: {
+		DisplayName: Burning Mana
+		Tooltip:
+			'''
+			Spell's deals 50% of his damage as a damage over time.
+
+			"They burn, my veins... they burn..."
+			'''
+	}
+
+	SummonAcc: {
+		DisplayName: Crimson Pact
+		Tooltip:
+			'''
+			Every 6 seconds minions deal 66% increased damage for 6 seconds.
+
+			"I can hear it calling me..."
+			'''
+	}
+
+	WarriorNecklaces: {
+		DisplayName: Reflection Gauntlet
+		Tooltip:
+			'''
+			Meele hit strikes one more time, dealing half of the damage.
+
+			"Like a ghost who torments its enemies."
+			'''
+	}
+
+	CosmicMotion: {
+		DisplayName: One With ...
+		Tooltip:
+			'''
+			Sucessful hits with projectiles grants you motion stacks
+			Each stack grants you
+			12% Increased Damage
+			10% Increased Movement Speed
+			7% Critical strike chance
+			2% Damage Reduction
+			At maximun stacks, your hits inflict Cosmic Burn.
+			You lose 5 stacks on taking damage
+			"Now... shooting an arrow at the moon is just a simple task"
+			'''
+	}
+
+	FromDust: {
+		DisplayName: From Dust
+		Tooltip:
+			'''
+			Gain +1 max summon for every 125 health
+			10% increased Summon damage per 125 life
+			Summons have a 8% chance to inflict Soul Burn
+			scaling with maximun summons.
+			"Accept this sacrifice from beyond, take this dust and grow."
+			'''
+	}
+
+	NebulaPredator: {
+		DisplayName: God's Hunter
+		Tooltip:
+			'''
+			You take 20% more damage
+			30% Increased melee damage
+			20% Increased Melee critical strike chance 
+			10% Increased Melee attack speed
+			Your melee attacks stacks damage to the enemy
+			reaching a maximum of 10 charges, then strikes
+			the enemy with it, the damage is affected by increasses and apply Cosmic Burn.
+			Critical hits grants the Predator Buff
+			"I am above you false god, your existence will be extinguished"
+			'''
+	}
+
+	Syntheses: {
+		DisplayName: Syntheses
+		Tooltip:
+			'''
+			35% increased magic damage
+			Magical Hits have a 2% chance to inflict a random debuff
+			This item modifies other magical accessories.
+			"...this is a nightmare, i must be dreaming,
+			reality doesn't bend like that..."
+			'''
+	}
+
+	ArcherMotion: {
+		DisplayName: One With Ocean
+		Tooltip:
+			'''
+			Sucessful hits with projectiles grants motion you stacks
+			Each stack grants you
+			9% Increased Damage
+			5% Increased Movement Speed
+			5% Critical strike chance 
+			You lose all stacks if you take damage
+			"Foolish sea demon, after the feast of
+			your glowing eyes, i am now one with you."
+			'''
+	}
+
+	JungleJuggernaut: {
+		DisplayName: The Jungle
+		Tooltip:
+			'''
+			10% Damage reduction
+			All your hits inflict Juggernaut Debbuf
+			wich deals damage equal to your armor
+			scaling with life.
+			"My skin has turned in to hard and dark wood, i can't move straight,
+			but now i'm safe..."
+			'''
+	}
+
+	LastBreath: {
+		DisplayName: Last Breath
+		Tooltip:
+			'''
+			Deals 20% more damage bellow 50% life
+			In your last life point, deals 500% more damage
+			"I will be not defeated in my final dance with death...
+			come and face me, mortal creature."
+			'''
+	}
+
+	ManaBlood: {
+		DisplayName: Mana Blood
+		Tooltip:
+			'''
+			+{0} Mana
+			Half of the damage is taken from mana before life,
+			but without mana you take 20% more damage.
+			"I can smell the fear, taste the red of blood,
+			feel the touch of sound... my body is no longer human."
+			'''
+	}
+
+	ManaRage: {
+		DisplayName: Star Breach
+		Tooltip:
+			'''
+			+{0} Mana
+			After 5 hits with magic you gain
+			Mana and life regeneration
+			Increassed magic damage scaling with maximun mana
+			While staing above 10 and bellow 95% of your mana
+			"Just another dance"
+			'''
+	}
+
+	Predator: {
+		DisplayName: Predator Fang's
+		Tooltip:
+			'''
+			You take 10% more damage.
+			Critical hits grant the Predator Buff
+			giving 50% attack speed
+			and 30% movement speed.
+			Your melee strikes deal damage to the enemy
+			reaching a maximum of 10 charges, then strikes
+			the enemy with it.
+			"There is no scape, prey... you are mine"
+			'''
+	}
+
+	Resilience: {
+		DisplayName: Resilience
+		Tooltip:
+			'''
+			+10 Armor
+			Below 50% health
+			Take 10% less damage per 100 missing health
+			sacrificing mana to recover life.
+			"This pain only makes me stronger"
+			'''
+	}
+
+	SonsOfMyBlood: {
+		DisplayName: From Blood
+		Tooltip:
+			'''
+			10% increased  Summon damage 
+			Gain +1 max summon for every 150 health
+			Summons have a 3% chance to inflict Soul Burn
+			"From my blood they drink... from my blood they come to life"
+			'''
+	}
+}

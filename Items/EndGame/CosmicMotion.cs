@@ -9,20 +9,7 @@ using alxnaccessories.Items.MidGame;
 namespace alxnaccessories.Items.EndGame
 {
 	public class CosmicMotion : ModItem {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Cosmic Motion");
-			Tooltip.SetDefault("Gain cosmic stack on hit\n"
-			+ "Loses 5 stacks if you take damage \n\n"
-			+ "Each stack gives\n"
-			+ "12% Increased Damage\n"
-			+ "10% Increased Movement Speed\n"
-			+ "7% Critical strike chance\n"
-			+ "2% Damage reduction\n\n"
-			+ "Inflict cosmic burn with 10 stacks"
-			);
-
-		}
+		public override void SetStaticDefaults() {}
 
 		public override void SetDefaults() {
 			Item.width = 40;
@@ -36,13 +23,15 @@ namespace alxnaccessories.Items.EndGame
 
 		public int Stacks;
 		public override void UpdateAccessory(Player player, bool hideVisual) {
-			player.GetModPlayer<CosmicMotionPlayer>().amEquipped = true;	
+			if (player.GetModPlayer<AlxnGlobalPlayer>().GMotion) return;
+
+            player.GetModPlayer<CosmicMotionPlayer>().amEquipped = true;	
 			player.GetModPlayer<CosmicMotionPlayer>().amRef = this;
 
 			player.GetDamage(DamageClass.Ranged) += 0.12f * Stacks;
 			player.moveSpeed += 0.1f * Stacks;
-			player.endurance += 0.02f * Stacks;
 			player.GetCritChance(DamageClass.Ranged) += 7f * Stacks;
+			player.endurance += 0.02f * Stacks;
 		}
 
 
@@ -51,7 +40,8 @@ namespace alxnaccessories.Items.EndGame
 				.AddIngredient(ModContent.ItemType<ArcherMotion>())
 				.AddIngredient(ItemID.LunarBar, 2)
 				.AddIngredient(ItemID.WingsVortex)
-				.AddTile(TileID.LunarCraftingStation)
+				.AddIngredient(ItemID.GoldBar)
+                .AddTile(TileID.LunarCraftingStation)
 				.Register();
 		}
 	}
@@ -66,9 +56,9 @@ namespace alxnaccessories.Items.EndGame
 		}
 
 
-		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
 		{
-			if (amRef == null) { return; }
+			if (!amEquipped || amRef == null) return;
 			if (Player.GetModPlayer<AlxnGlobalPlayer>().GMotion) { amRef.Stacks = 0; return; }
 
 			if (!amEquipped || proj.DamageType != DamageClass.Ranged) {return;}
@@ -78,24 +68,24 @@ namespace alxnaccessories.Items.EndGame
 			}
 
 			if (amRef.Stacks >= 10) {
-				target.GetGlobalNPC<CosmicBurnNPCDebuff>().burnDamage = (int)(damage * 0.8f);
+
+                target.GetGlobalNPC<CosmicBurnNPCDebuff>().burnDamage = proj.damage;
 				target.GetGlobalNPC<CosmicBurnNPCDebuff>().StrongEffect = true;
 				target.AddBuff(ModContent.BuffType<CosmicBurnDebuff>(), 200);
 			}
 		}
 
-		public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+		public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
 		{
 			LoseStacks();
 		}
-		public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+		public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
 		{
 			LoseStacks();
 		}
 
 		private void LoseStacks() {
-			if (amRef == null) { return; }
-			if (!amEquipped) {return;}
+            if(!amEquipped || amRef == null) return;
 			if (amRef.Stacks - 5 <= 0) { amRef.Stacks = 0; return; }
 			amRef.Stacks -= 5;
 		}

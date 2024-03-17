@@ -6,7 +6,7 @@ namespace alxnaccessories.Effects.SysthesesEffects
 	public class SynthesesCold : ModBuff
 	{
 		public override void SetStaticDefaults() {
-			DisplayName.SetDefault("Syntheses Cold");
+			// DisplayName.SetDefault("Syntheses Cold");
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 		}

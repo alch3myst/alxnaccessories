@@ -2,16 +2,16 @@ using Terraria;
 using Terraria.ID;
 using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
+using Terraria.Localization;
+using System;
 
 namespace alxnaccessories.Items.MidGame
 {
 	public class ManaBlood : ModItem {
 		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Mana Blood");
-			Tooltip.SetDefault("Take half of the damage from mana instead of life.\n"
-			+"If you ran out of mana, you take 15% increased damage.");
-		}
+		{}
+
+		public static readonly int additiveMana = 30;
 
 		public override void SetDefaults() {
 			Item.width = 40;
@@ -23,9 +23,12 @@ namespace alxnaccessories.Items.MidGame
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
-		public override void UpdateAccessory(Player player, bool hideVisual) {
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(additiveMana);
+
+        public override void UpdateAccessory(Player player, bool hideVisual) {
 			player.GetModPlayer<ManabloodDamagePlayer>().ManaBloodEquiped = true;
-			// player.GetModPlayer<ManabloodDamagePlayer>().player = player;
+
+			player.statManaMax2 += additiveMana;
 		}
 
 		public override void AddRecipes() {
@@ -38,7 +41,7 @@ namespace alxnaccessories.Items.MidGame
 		}
 	}
 
-
+	// More mana == more absorption
 	public class ManabloodDamagePlayer : ModPlayer {
 		public bool ManaBloodEquiped;
 
@@ -49,39 +52,40 @@ namespace alxnaccessories.Items.MidGame
 			ManaBloodEquiped = false;
 		}
 
-
-		// TODO: Refactor to function
-		public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+        public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
 		{
-			if (ManaBloodEquiped) {
-				int halfDamage = damage / 2;
-				int manaDamage = Utils.Clamp<int>( (int)( (damage - Player.statDefense) * (1f-Player.endurance)) , 1, damage) / 2;
+			if (!ManaBloodEquiped) return;
+            ManaBloodCalc(ref modifiers, npc, null);
+        }
 
-				if (Player.statMana - manaDamage <= 0) {
-					damage = (int)( (damage - Player.statMana) * 1.15f) ;
-					Player.statMana = 0;
-				} else {
-					damage = halfDamage;
-					Player.statMana -= manaDamage;
-				}
-			}
-		}
-
-		public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+        public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
 		{
-			if (ManaBloodEquiped) {
-				int halfDamage = damage / 2;
-				int manaDamage = Utils.Clamp<int>( (int)( (damage - Player.statDefense) * (1f-Player.endurance)) , 1, damage) / 2;
+            if (!ManaBloodEquiped) return;
+            ManaBloodCalc(ref modifiers, null, proj);
+        }
 
-				if (Player.statMana - manaDamage <= 0) {
-					damage = (int)( (damage - Player.statMana) * 1.15f) ;
-					Player.statMana = 0;
-				} else {
-					damage = halfDamage;
-					Player.statMana -= manaDamage;
-				}
-			}
-		}
+		private void ManaBloodCalc(ref Player.HurtModifiers modifiers, NPC npc = null, Projectile proj = null) {
+			int manaDamage = 0;
+
+            if (proj != null)
+			{
+				manaDamage = Math.Clamp((int)(proj.damage * 0.5) - Player.statDefense, (int)(proj.damage * 0.2f), proj.damage);
+			} else
+			{
+                manaDamage = Math.Clamp((int)(npc.damage * 0.5) - Player.statDefense, (int)(npc.damage * 0.2f), npc.damage);
+            }
+
+            if (Player.statMana - manaDamage <= 0)
+            {
+                modifiers.IncomingDamageMultiplier *= 1.2f;
+                Player.statMana = 0;
+            }
+            else
+            {
+                modifiers.FinalDamage *= 0.5f;
+                Player.statMana -= manaDamage;
+            }
+        }
 	}
 	
 }

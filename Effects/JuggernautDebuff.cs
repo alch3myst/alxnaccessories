@@ -8,8 +8,6 @@ namespace alxnaccessories.Effects
 	public class JuggernautDebuff : ModBuff
 	{
 		public override void SetStaticDefaults() {
-			DisplayName.SetDefault("JuggernautDebuff");
-			Description.SetDefault("Losing life");
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 		}
@@ -24,13 +22,14 @@ namespace alxnaccessories.Effects
 		public override bool InstancePerEntity => true;
 		public bool JuggernautDebuff;
 		public int jdamage;
+		public NPC.HitInfo JuggHitInfo;
 
 		public override void ResetEffects(NPC npc)
 		{
 			JuggernautDebuff = false;
 		}
 
-		private static int deltaDamageInterval = 300;
+		private static int deltaDamageInterval = 400;
 		private long endTime = System.DateTimeOffset.Now.ToUnixTimeMilliseconds() + deltaDamageInterval;
 		private static UnifiedRandom random = new UnifiedRandom();
 		public float critChance;
@@ -42,13 +41,20 @@ namespace alxnaccessories.Effects
 				npc.buffImmune[ModContent.BuffType<JuggernautDebuff>()] = false;
 
 				long currentTime = System.DateTimeOffset.Now.ToUnixTimeMilliseconds();
-				npc.lifeRegen -= 30;
+				npc.lifeRegen -= jdamage / 4;
 
 				if (endTime < currentTime) {
+                    JuggHitInfo.Crit = false;
+                    JuggHitInfo.Damage = jdamage;
+
+					// Roll crit dice
 					if (critChance / 100 >= random.NextFloat()) {
-						npc.StrikeNPC((int)(jdamage * 1.5f), 0, 0, true, true);
+						JuggHitInfo.Crit = true;
+						JuggHitInfo.Damage = (int)(jdamage * 1.5f);
 					}
-					npc.StrikeNPC(jdamage, 0, 0, false, true);
+
+
+                    npc.StrikeNPC(JuggHitInfo, true, true);
 					endTime = currentTime + deltaDamageInterval;
 				}
 			}

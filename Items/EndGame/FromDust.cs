@@ -12,14 +12,14 @@ namespace alxnaccessories.Items.EndGame
 	public class FromDust : ModItem {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Life From Dust");
-			Tooltip.SetDefault(
-				"+1 Minion per 120 life\n"
-				+ "10% Increased summon damage per 120 life\n"
+			// DisplayName.SetDefault("Life From Dust");
+			/* Tooltip.SetDefault(
+				"+1 Minion per 125 life\n"
+				+ "10% Increased summon damage per 125 life\n"
 				+ "Hits have a 8% chance of inflicting cosmic burn\n"
 				+ "Hits deals additional damage, witch scales with\n"
 				+ "maximum minions.\n"
-			);
+			); */
 		}
 
 		public override void SetDefaults() {
@@ -35,10 +35,10 @@ namespace alxnaccessories.Items.EndGame
 
 		public override void UpdateAccessory(Player player, bool hideVisual) {
 			player.GetModPlayer<AlxnGlobalPlayer>().GFromDust = true;
-			if (player.GetModPlayer<AlxnGlobalPlayer>().GSons) {return;}
+			if (player.GetModPlayer<AlxnGlobalPlayer>().GSons) return;
 
-			player.maxMinions += 1 * (player.statLifeMax / 120);
-			player.GetDamage(DamageClass.Summon) += 0.1f * (player.statLifeMax / 120);
+			player.maxMinions += 1 * (player.statLifeMax / 125);
+			player.GetDamage(DamageClass.Summon) += 0.1f * (player.statLifeMax / 125);
 			player.GetModPlayer<FromDustPlayer>().fdustOn = true;
 			player.GetModPlayer<FromDustPlayer>().maxMinions = player.maxMinions;
 		}
@@ -64,16 +64,14 @@ namespace alxnaccessories.Items.EndGame
 		}
 
 		private UnifiedRandom random = new UnifiedRandom();
-		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)/* tModPorter If you don't need the Projectile, consider using ModifyHitNPC instead */
 		{
 			if (fdustOn && proj.DamageType == DamageClass.Summon) {
-			if (Player.GetModPlayer<AlxnGlobalPlayer>().GSons) { return; }
-
-				damage += (int)(damage * (maxMinions / 50));
+			if (Player.GetModPlayer<AlxnGlobalPlayer>().GSons) return;
 
 				if (0.08f >= random.NextFloat()) {
 					target.GetGlobalNPC<CosmicBurnNPCDebuff>().StrongEffect = true;
-					target.GetGlobalNPC<CosmicBurnNPCDebuff>().burnDamage = damage * 2;
+					target.GetGlobalNPC<CosmicBurnNPCDebuff>().burnDamage = (int)(proj.damage * 1+(maxMinions / 10));
 
 					target.AddBuff(ModContent.BuffType<CosmicBurnDebuff>(), 250);
 				}

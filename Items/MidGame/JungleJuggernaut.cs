@@ -7,18 +7,7 @@ using alxnaccessories.Effects;
 namespace alxnaccessories.Items.MidGame
 {
 	public class JungleJuggernaut : ModItem {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Jungle Juggernaut");
-			Tooltip.SetDefault("Always deals 1 damage\n"
-			+ "+20 Armour\n"
-			+ "10% Damage Reduction\n"
-			+ "All hits inflict Juggernaut Debbuf\n"
-			+ "Juggernaut deal damage equals to your armor\n"
-			+ "and scales with max life\n"
-			+ "Crits deal a double strike\n"
-			);
-		}
+		public override void SetStaticDefaults() {}
 
 		public override void SetDefaults() {
 			Item.width = 40;
@@ -34,7 +23,9 @@ namespace alxnaccessories.Items.MidGame
 			player.GetModPlayer<JungleJuggernautPlayer>().JungleJuggernautEquiped = true;
 			player.statDefense += 20;
 			player.endurance += 0.1f;
-		}
+			player.GetDamage(DamageClass.Generic) *= 0.08f;
+
+        }
 
 
 		public override void AddRecipes() {
@@ -55,26 +46,40 @@ namespace alxnaccessories.Items.MidGame
 			JungleJuggernautEquiped = false;
 		}
 
-		public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
+		public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)
 		{
-			if (JungleJuggernautEquiped) {
-				ApplyJugg(target, ref damage);
+			if (JungleJuggernautEquiped)
+			{
+				if (modifiers.DamageType == DamageClass.Melee || modifiers.DamageType == DamageClass.Ranged) {
+					ApplyJugg(target, ref item.damage);
+				}
 			}
 		}
 
-		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
 		{
 			if (JungleJuggernautEquiped) {
-				ApplyJugg(target, ref damage);
+				if (modifiers.DamageType == DamageClass.Melee || modifiers.DamageType == DamageClass.Ranged)
+				{
+					ApplyJugg(target, ref proj.damage);
+				}
 			}
 		}
 
 		private void ApplyJugg(NPC target, ref int damage) {
-			damage = 1;
-			float lifeScaling = 1 + Utils.Clamp<float>(System.MathF.Log2(Player.statLifeMax2 / 100), 0f, 10f) * 0.5f;
+			float lifeScaling = System.MathF.Log(Player.statLifeMax2) / 4;
+
+			// Set the debuff crit chance to the held weapon drit
 			target.GetGlobalNPC<JuggernautNPCDebuff>().critChance = Player.GetTotalCritChance<MeleeDamageClass>();
-			target.GetGlobalNPC<JuggernautNPCDebuff>().jdamage = (int)( (Player.statDefense * lifeScaling) + Player.statLife * 0.1f);
+			
+			// Set the debuff damage
+			target.GetGlobalNPC<JuggernautNPCDebuff>().jdamage =
+				(int)( Player.statDefense * (1 + lifeScaling) + Player.statLife * 0.12f);
+
+			// Remove immunity to work on bosses
 			target.buffImmune[ModContent.BuffType<JuggernautDebuff>()] = false;	
+
+			// Add the buff to the enemy
 			target.AddBuff(ModContent.BuffType<JuggernautDebuff>(), 250, true);
 		}
 	}

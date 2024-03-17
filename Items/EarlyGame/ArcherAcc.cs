@@ -5,12 +5,7 @@ using Terraria.ModLoader;
 
 namespace alxnaccessories.Items.EarlyGame {
 	public class ArcherAcc : ModItem {
-		public override void SetStaticDefaults() {
-			DisplayName.SetDefault("One With Nature");
-			Tooltip.SetDefault("Cycles between wind and fang\n"
-			+ "Wind: 30% increased attack and 20% movement speed\n"
-			+ "Fang: 15% increased ranged damage\n");
-		}
+		public override void SetStaticDefaults() {}
 
 		public override void SetDefaults() {
 			Item.width = 32;
@@ -42,8 +37,8 @@ namespace alxnaccessories.Items.EarlyGame {
 			}
 			else {
 				// Fang mode
-				player.GetDamage(DamageClass.Ranged).Base += 10f;
-				player.GetDamage(DamageClass.Ranged) += 0.15f;
+				player.GetDamage(DamageClass.Ranged).Base += 5f;
+				player.GetDamage(DamageClass.Ranged) += 0.10f;
 			}
 		}
 
