@@ -69,7 +69,7 @@ Items: {
 		DisplayName: One With ...
 		Tooltip:
 			'''
-			Sucessful hits with projectiles grants you motion stacks
+			Sucessful hits with projectiles gives Motion Stacks
 			Each stack grants you
 			12% Increased Damage
 			10% Increased Movement Speed
@@ -87,7 +87,7 @@ Items: {
 			'''
 			Gain +1 max summon for every 125 health
 			10% increased Summon damage per 125 life
-			Summons have a 8% chance to inflict Soul Burn
+			Summons have a 8% chance to inflict Cosmic Burn
 			scaling with maximun summons.
 			"Accept this sacrifice from beyond, take this dust and grow."
 			'''
@@ -101,9 +101,9 @@ Items: {
 			30% Increased melee damage
 			20% Increased Melee critical strike chance 
 			10% Increased Melee attack speed
-			Your melee attacks stacks damage to the enemy
+			Your melee strikes accumulate damage to the enemy
 			reaching a maximum of 10 charges, then strikes
-			the enemy with it, the damage is affected by increasses and apply Cosmic Burn.
+			the enemy with it, the damage is affected by modifiers and apply Cosmic Burn.
 			Critical hits grants the Predator Buff
 			"I am above you false god, your existence will be extinguished"
 			'''
@@ -114,7 +114,6 @@ Items: {
 		Tooltip:
 			'''
 			35% increased magic damage
-			Magical Hits have a 2% chance to inflict a random debuff
 			This item modifies other magical accessories.
 			"...this is a nightmare, i must be dreaming,
 			reality doesn't bend like that..."
@@ -125,7 +124,7 @@ Items: {
 		DisplayName: One With Ocean
 		Tooltip:
 			'''
-			Sucessful hits with projectiles grants motion you stacks
+			Sucessful hits with projectiles gives Motion Stacks
 			Each stack grants you
 			9% Increased Damage
 			5% Increased Movement Speed
@@ -142,9 +141,9 @@ Items: {
 			'''
 			10% Damage reduction
 			All your hits inflict Juggernaut Debbuf
-			wich deals damage equal to your armor
-			scaling with life.
-			"My skin has turned in to hard and dark wood, i can't move straight,
+			wich deals damage equal to your armor scaling with life.
+			98% Reduced damage
+			"My skin has turned in to a hard and dark wood, i can't move straight,
 			but now i'm safe..."
 			'''
 	}
@@ -193,7 +192,7 @@ Items: {
 			Critical hits grant the Predator Buff
 			giving 50% attack speed
 			and 30% movement speed.
-			Your melee strikes deal damage to the enemy
+			Your melee strikes accumulate damage to the enemy
 			reaching a maximum of 10 charges, then strikes
 			the enemy with it.
 			"There is no scape, prey... you are mine"
@@ -206,8 +205,8 @@ Items: {
 			'''
 			+10 Armor
 			Below 50% health
-			Take 10% less damage per 100 missing health
-			sacrificing mana to recover life.
+			Take less damage per 100 missing health
+			and sacrifice mana to recover life.
 			"This pain only makes me stronger"
 			'''
 	}
